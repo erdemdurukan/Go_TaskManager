@@ -116,6 +116,14 @@ func (s *ApiServer) Run() error {
 				http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 			}
 		}))
+	router.HandleFunc("/changeItemStatus", s.AuthMiddleware(
+		func(w http.ResponseWriter, r *http.Request) {
+			if r.Method == http.MethodPut {
+				s.ChangeItemStatusHandler(w, r)
+			} else {
+				http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
+			}
+		}))
 
 	// Yeni kullanıcı oluşturma (POST /register)
 	router.HandleFunc("/register", func(w http.ResponseWriter, r *http.Request) {
