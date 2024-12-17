@@ -1,0 +1,1 @@
+Start the project with this command: go run .
